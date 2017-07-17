@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN" layout:decorator="layouts/layout">
+
+<head>
+
+    <link th:href="@{/vendor/jsoneditor/jsoneditor.min.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/vendor/jsoneditor/jsoneditor.min.js}"></script>
+
+    <style type="text/css">
+        #param-editor {
+            width: 100%;
+            height: 530px;
+        }
+        #symbol-editor {
+            width: 100%;
+            height: 148px;
+        }
+    </style>
+
+    <script type="text/javascript" th:src="@{/vendor/datetimepicker/moment-with-locales.js}"></script>
+    <script type="text/javascript" th:src="@{/vendor/datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/datetimepicker/bootstrap-datetimepicker.min.css}" />
+    
+    <script th:src="@{/js/CreateBackTestInstance.js}"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="page-wrapper" layout:fragment="content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">创建实例</h2>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <form class="form-horizontal" id="create-instance-form">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="select-strategy" class="col-sm-3 control-label">策略名称</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="select-strategy" name="Strategy">
+                                    <option disabled selected value> -- 选择策略 -- </option>
+                                    <option value="BreakoutStrategy">突破策略-BreakoutStrategy</option>
+                                    <option value="MockStrategy">模拟策略-MockStrategy</option>
+                                    <option value="NewPeakStrategy">震荡突破策略-NewPeakStrategy</option>
+                                    <option value="StrongTrendStrategy">强势策略-StrongTrendStrategy</option>
+                                    <option value="ContrarianStrategy">反转策略-ContrarianStrategy</option>
+                                    <option value="TrixTrendStrategy">三重指数策略-TrixTrendStrategy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">回测范围</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input class="form-control" id="input-starttime" placeholder="开始时间" type="text" name="StartDate">
+                                    <div class="input-group-addon">至</div>
+                                    <input class="form-control" id="input-endtime" placeholder="结束时间" type="text" name="EndDate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-basecash" class="col-sm-3 control-label">初始现金</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="input-basecash" placeholder="￥0.00" type="number" name="BaseCash" min="0" value="5000000" step="10000">    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-commission" class="col-sm-3 control-label">佣金</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="input-commission" placeholder="0.0003" name="Commission" type="number" min="0" max="1" step="0.0001" value="0.0003">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-stampduty" class="col-sm-3 control-label">印花税</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="input-stampduty" name="StampDuty" placeholder="0.001" type="number" min="0" max="1" step="0.001" value="0.001">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="select-testtimeframe" class="col-sm-3 control-label">回测粒度</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="select-timeframe" name="BackTestTimeFrame">
+                                    <option disabled selected value> -- 选择粒度 -- </option>
+                                    <option value="PERIOD_Tick">Tick数据</option>
+                                    <option value="PERIOD_H1">1小时线</option>
+                                    <option value="PERIOD_M5">5分钟线</option>
+                                    <option value="PERIOD_M1">1分钟线</option>
+                                    <option value="PERIOD_D1">1天</option>
+                                    <option value="PERIOD_W1">1周</option>
+                                    <option value="PERIOD_MN1">1月</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="select-reporttimeframe" class="col-sm-3 control-label">报告粒度</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="select-reporttimeframe" name="ReportTimeFrame">
+                                    <option disabled selected value> -- 选择粒度 -- </option>
+                                    <option value="PERIOD_Tick">Tick数据</option>
+                                    <option value="PERIOD_H1">1小时线</option>
+                                    <option value="PERIOD_M5">5分钟线</option>
+                                    <option value="PERIOD_M1">1分钟线</option>
+                                    <option value="PERIOD_D1">1天</option>
+                                    <option value="PERIOD_W1">1周</option>
+                                    <option value="PERIOD_MN1">1月</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="select-benchmark" class="col-sm-3 control-label">对标指数</label>
+                            <div class="col-sm-9">
+                                <select multiple="multiple" class="form-control" id="select-benchmark" name="BenchMarks">
+                                    <option disabled selected value> -- 选择指数（可多选） -- </option>
+                                    <option value="HS300">沪深 300</option>
+                                    <option value="SZ50">上证50</option>
+                                    <option value="ZZ500">中证50</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-symbol" class="col-sm-3 control-label">股票代码</label>
+                            <div class="col-sm-9">
+                                <div id="symbol-editor"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input-param" class="col-sm-3 control-label">附加参数</label>
+                            <div class="col-sm-9">
+                                <div id="param-editor"></div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-param" class="col-sm-3 control-label">    </label>
+                            <div class="col-sm-9" style="text-align:center;">
+                                <button type="button" id="createBtn" class="btn btn-success btn-lg" style="position:relative;">创建回测实例</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- /#page-wrapper -->
+
+
+    </div>
+    <!-- /#wrapper -->
+
+</body>
+
+</html>

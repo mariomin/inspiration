@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t2sdk-configuration>
+	<performance heartbeatTime="400" acquireConnWaitTime="3000"
+		registerTime="5" reconnInterval="3" callBackTime="5000" enmCompress="true" senderQueueLength="10000"/>
+	<parents>
+		<parent parentName="as_ufx" safeLevel="none">
+			<limit licenseFile="classpath:common/o32/license.dat" encrypt="HSBlowfish" />
+			<members>
+				<member no="5" address="168.168.204.74" port="9004" charset="gbk"
+					poolSize="1" />
+			</members>
+		</parent>
+		
+		<parent parentName="ar_mc" safeLevel="none">
+			<limit licenseFile="classpath:common/o32/license.dat" encrypt="HSBlowfish" />
+			<members>
+				<member no="5" address="168.168.204.74" port="9008" charset="gbk"
+					poolSize="1" />
+			</members>
+		</parent>
+	</parents>
+	<callBackMethods>
+		<method id="1" className="com.huatai.platform.downstream.adaptor.o32.processor.O32CallBackMethod" />
+		<method id="-1" className="com.hundsun.mcapi.MCT2sdkCallback" />
+	</callBackMethods>
+	
+	<mc parentName="ar_mc" type="1" cachedir="./mc" inittimeout="3000">
+
+		<!--  订阅者信息配置  -->
+		<!--  subname：订阅者名字  subcallback：订阅者的回调类，必须有，否则构造失败 timeout：订阅者的初始化超时时间   -->
+		<subscriber  subname="executionCallback"  subcallback="com.huatai.platform.downstream.adaptor.o32.processor.O32ExecutionCallback"  timeout="3000"/>
+	
+		<publisher pubname="testPublisher" msgCount="200" isResetNo="false"/>
+		<!-- mc日志目录配置 -->
+		<mclog dir="./mclog" />
+	</mc>
+
+	<logAdapter className="com.hundsun.t2sdk.impl.util.CommonLogAdapter" />
+</t2sdk-configuration>

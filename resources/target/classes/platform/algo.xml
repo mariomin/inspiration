@@ -1,0 +1,31 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+	<import resource="classpath:common/settings.xml" />
+	<import resource="classpath:common/common.xml" />
+	<import resource="classpath:algo/module-algo.xml" />
+
+	<bean id="platform" class="com.huatai.platform.Platform">
+		<property name="heartBeatInterval" value="3000" />
+		<property name="plugins">
+			<list>
+				<ref bean="eventManager" />
+				<ref bean="scheduleManager" />
+				<ref bean="algoTradeManager" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="systemInfo" class="com.huatai.common.SystemInfo">
+		<property name="env" value="dev" />
+		<property name="category" value="ats-001" />
+		<property name="id" value="strategy" />
+		<property name="type" value="Algo" />
+	</bean>
+	
+</beans>

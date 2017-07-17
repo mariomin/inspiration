@@ -1,0 +1,356 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+	<import resource="classpath:common/settings.xml" />
+
+	<bean id="platform" class="com.huatai.platform.Platform">
+		<property name="heartBeatInterval" value="${heartbeat.interval}" />
+		<property name="plugins">
+			<list>
+				<ref bean="eventManager" />
+				<ref bean="scheduleManager" />
+				<ref bean="algoTradeManager" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="systemInfo" class="com.huatai.common.SystemInfo">
+		<property name="env" value="${env}" />
+		<property name="category" value="${category}" />
+		<property name="id" value="strategy" />
+		<property name="type" value="Algo" />
+	</bean>
+	
+	<bean id="waitStrategy" class="${disruptor.wait.strategy}" scope="prototype" />
+
+	<bean id="eventManager" class="com.huatai.platform.event.RemoteEventManager">
+		<constructor-arg>
+			<ref bean="systemInfo" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="scheduleManager" class="com.huatai.platform.schedule.ScheduleManager" />
+
+	<bean id="algoTradeManager" class="com.huatai.platform.algo.AlgoTradeManager">
+		<property name="skipRefData" value="true"/>
+	</bean>
+	
+	<bean id="strategyContainer" class="com.huatai.platform.algo.StrategyContainer" scope="prototype">
+		<property name="esperConfig" value="platform/esper.xml"/>
+	</bean>
+	
+	<bean id="strategyFactory" class="com.huatai.platform.algo.StrategyFactory" />
+	
+	<bean id="symbols" class="java.util.HashSet">
+		<constructor-arg>
+			<set>
+				<value>000001.SZ</value>
+				<value>000002.SZ</value>
+				<value>000009.SZ</value>
+				<value>000027.SZ</value>
+				<value>000039.SZ</value>
+				<value>000046.SZ</value>
+				<value>000060.SZ</value>
+				<value>000061.SZ</value>
+				<value>000063.SZ</value>
+				<value>000069.SZ</value>
+				<value>000100.SZ</value>
+				<value>000156.SZ</value>
+				<value>000157.SZ</value>
+				<value>000166.SZ</value>
+				<value>000333.SZ</value>
+				<value>000338.SZ</value>
+				<value>000402.SZ</value>
+				<value>000413.SZ</value>
+				<value>000415.SZ</value>
+				<value>000423.SZ</value>
+				<value>000425.SZ</value>
+				<value>000503.SZ</value>
+				<value>000538.SZ</value>
+				<value>000540.SZ</value>
+				<value>000559.SZ</value>
+				<value>000568.SZ</value>
+				<value>000623.SZ</value>
+				<value>000625.SZ</value>
+				<value>000630.SZ</value>
+				<value>000651.SZ</value>
+				<value>000686.SZ</value>
+				<value>000709.SZ</value>
+				<value>000712.SZ</value>
+				<value>000725.SZ</value>
+				<value>000728.SZ</value>
+				<value>000729.SZ</value>
+				<value>000738.SZ</value>
+				<value>000750.SZ</value>
+				<value>000768.SZ</value>
+				<value>000776.SZ</value>
+				<value>000778.SZ</value>
+				<value>000783.SZ</value>
+				<value>000792.SZ</value>
+				<value>000793.SZ</value>
+				<value>000800.SZ</value>
+				<value>000825.SZ</value>
+				<value>000826.SZ</value>
+				<value>000839.SZ</value>
+				<value>000858.SZ</value>
+				<value>000876.SZ</value>
+				<value>000883.SZ</value>
+				<value>000895.SZ</value>
+				<value>000898.SZ</value>
+				<value>000917.SZ</value>
+				<value>000963.SZ</value>
+				<value>000977.SZ</value>
+				<value>000999.SZ</value>
+				<value>001979.SZ</value>
+				<value>002007.SZ</value>
+				<value>002008.SZ</value>
+				<value>002024.SZ</value>
+				<value>002027.SZ</value>
+				<value>002065.SZ</value>
+				<value>002081.SZ</value>
+				<value>002129.SZ</value>
+				<value>002142.SZ</value>
+				<value>002146.SZ</value>
+				<value>002152.SZ</value>
+				<value>002153.SZ</value>
+				<value>002183.SZ</value>
+				<value>002195.SZ</value>
+				<value>002202.SZ</value>
+				<value>002230.SZ</value>
+				<value>002236.SZ</value>
+				<value>002241.SZ</value>
+				<value>002252.SZ</value>
+				<value>002292.SZ</value>
+				<value>002294.SZ</value>
+				<value>002304.SZ</value>
+				<value>002385.SZ</value>
+				<value>002399.SZ</value>
+				<value>002415.SZ</value>
+				<value>002422.SZ</value>
+				<value>002424.SZ</value>
+				<value>002450.SZ</value>
+				<value>002456.SZ</value>
+				<value>002465.SZ</value>
+				<value>002470.SZ</value>
+				<value>002475.SZ</value>
+				<value>002500.SZ</value>
+				<value>002568.SZ</value>
+				<value>002594.SZ</value>
+				<value>002673.SZ</value>
+				<value>002736.SZ</value>
+				<value>002739.SZ</value>
+				<value>300002.SZ</value>
+				<value>300003.SZ</value>
+				<value>300015.SZ</value>
+				<value>300017.SZ</value>
+				<value>300024.SZ</value>
+				<value>300027.SZ</value>
+				<value>300058.SZ</value>
+				<value>300059.SZ</value>
+				<value>300070.SZ</value>
+				<value>300085.SZ</value>
+				<value>300104.SZ</value>
+				<value>300124.SZ</value>
+				<value>300133.SZ</value>
+				<value>300144.SZ</value>
+				<value>300146.SZ</value>
+				<value>300168.SZ</value>
+				<value>300251.SZ</value>
+				<value>300315.SZ</value>
+				<value>600000.SH</value>
+				<value>600005.SH</value>
+				<value>600008.SH</value>
+				<value>600009.SH</value>
+				<value>600010.SH</value>
+				<value>600011.SH</value>
+				<value>600015.SH</value>
+				<value>600016.SH</value>
+				<value>600018.SH</value>
+				<value>600019.SH</value>
+				<value>600021.SH</value>
+				<value>600022.SH</value>
+				<value>600023.SH</value>
+				<value>600027.SH</value>
+				<value>600028.SH</value>
+				<value>600029.SH</value>
+				<value>600030.SH</value>
+				<value>600031.SH</value>
+				<value>600036.SH</value>
+				<value>600037.SH</value>
+				<value>600038.SH</value>
+				<value>600048.SH</value>
+				<value>600050.SH</value>
+				<value>600060.SH</value>
+				<value>600061.SH</value>
+				<value>600066.SH</value>
+				<value>600068.SH</value>
+				<value>600074.SH</value>
+				<value>600085.SH</value>
+				<value>600089.SH</value>
+				<value>600098.SH</value>
+				<value>600100.SH</value>
+				<value>600104.SH</value>
+				<value>600109.SH</value>
+				<value>600111.SH</value>
+				<value>600115.SH</value>
+				<value>600118.SH</value>
+				<value>600150.SH</value>
+				<value>600153.SH</value>
+				<value>600157.SH</value>
+				<value>600170.SH</value>
+				<value>600177.SH</value>
+				<value>600188.SH</value>
+				<value>600196.SH</value>
+				<value>600208.SH</value>
+				<value>600221.SH</value>
+				<value>600252.SH</value>
+				<value>600256.SH</value>
+				<value>600271.SH</value>
+				<value>600276.SH</value>
+				<value>600309.SH</value>
+				<value>600317.SH</value>
+				<value>600332.SH</value>
+				<value>600340.SH</value>
+				<value>600352.SH</value>
+				<value>600362.SH</value>
+				<value>600369.SH</value>
+				<value>600372.SH</value>
+				<value>600373.SH</value>
+				<value>600376.SH</value>
+				<value>600383.SH</value>
+				<value>600398.SH</value>
+				<value>600406.SH</value>
+				<value>600415.SH</value>
+				<value>600446.SH</value>
+				<value>600485.SH</value>
+				<value>600489.SH</value>
+				<value>600518.SH</value>
+				<value>600519.SH</value>
+				<value>600535.SH</value>
+				<value>600547.SH</value>
+				<value>600570.SH</value>
+				<value>600578.SH</value>
+				<value>600582.SH</value>
+				<value>600583.SH</value>
+				<value>600585.SH</value>
+				<value>600588.SH</value>
+				<value>600600.SH</value>
+				<value>600606.SH</value>
+				<value>600637.SH</value>
+				<value>600642.SH</value>
+				<value>600648.SH</value>
+				<value>600649.SH</value>
+				<value>600660.SH</value>
+				<value>600663.SH</value>
+				<value>600666.SH</value>
+				<value>600674.SH</value>
+				<value>600685.SH</value>
+				<value>600688.SH</value>
+				<value>600690.SH</value>
+				<value>600703.SH</value>
+				<value>600704.SH</value>
+				<value>600705.SH</value>
+				<value>600718.SH</value>
+				<value>600737.SH</value>
+				<value>600739.SH</value>
+				<value>600741.SH</value>
+				<value>600783.SH</value>
+				<value>600795.SH</value>
+				<value>600804.SH</value>
+				<value>600816.SH</value>
+				<value>600820.SH</value>
+				<value>600827.SH</value>
+				<value>600837.SH</value>
+				<value>600839.SH</value>
+				<value>600863.SH</value>
+				<value>600867.SH</value>
+				<value>600871.SH</value>
+				<value>600873.SH</value>
+				<value>600875.SH</value>
+				<value>600886.SH</value>
+				<value>600887.SH</value>
+				<value>600893.SH</value>
+				<value>600895.SH</value>
+				<value>600900.SH</value>
+				<value>600958.SH</value>
+				<value>600959.SH</value>
+				<value>600998.SH</value>
+				<value>600999.SH</value>
+				<value>601006.SH</value>
+				<value>601009.SH</value>
+				<value>601016.SH</value>
+				<value>601018.SH</value>
+				<value>601021.SH</value>
+				<value>601088.SH</value>
+				<value>601098.SH</value>
+				<value>601099.SH</value>
+				<value>601106.SH</value>
+				<value>601111.SH</value>
+				<value>601117.SH</value>
+				<value>601118.SH</value>
+				<value>601166.SH</value>
+				<value>601169.SH</value>
+				<value>601179.SH</value>
+				<value>601186.SH</value>
+				<value>601198.SH</value>
+				<value>601211.SH</value>
+				<value>601216.SH</value>
+				<value>601225.SH</value>
+				<value>601258.SH</value>
+				<value>601288.SH</value>
+				<value>601318.SH</value>
+				<value>601328.SH</value>
+				<value>601333.SH</value>
+				<value>601336.SH</value>
+				<value>601377.SH</value>
+				<value>601390.SH</value>
+				<value>601398.SH</value>
+				<value>601555.SH</value>
+				<value>601600.SH</value>
+				<value>601601.SH</value>
+				<value>601607.SH</value>
+				<value>601608.SH</value>
+				<value>601618.SH</value>
+				<value>601628.SH</value>
+				<value>601633.SH</value>
+				<value>601668.SH</value>
+				<value>601669.SH</value>
+				<value>601688.SH</value>
+				<value>601718.SH</value>
+				<value>601727.SH</value>
+				<value>601766.SH</value>
+				<value>601788.SH</value>
+				<value>601800.SH</value>
+				<value>601808.SH</value>
+				<value>601818.SH</value>
+				<value>601857.SH</value>
+				<value>601866.SH</value>
+				<value>601872.SH</value>
+				<value>601888.SH</value>
+				<value>601898.SH</value>
+				<value>601899.SH</value>
+				<value>601901.SH</value>
+				<value>601919.SH</value>
+				<value>601928.SH</value>
+				<value>601933.SH</value>
+				<value>601939.SH</value>
+				<value>601958.SH</value>
+				<value>601985.SH</value>
+				<value>601988.SH</value>
+				<value>601989.SH</value>
+				<value>601991.SH</value>
+				<value>601992.SH</value>
+				<value>601998.SH</value>
+				<value>603000.SH</value>
+				<value>603885.SH</value>
+				<value>603993.SH</value>
+			</set>
+		</constructor-arg>
+	</bean>
+		
+</beans>

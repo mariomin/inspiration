@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN" layout:decorator="layouts/layout">
+
+<head>
+    <link th:href="@{/css/BackTestReporting.css}" rel="stylesheet">
+
+    <!-- amCharts resources -->
+    <script th:src="@{/vendor/amcharts/amcharts.js}"></script>
+    <script th:src="@{/vendor/amcharts/serial.js}"></script>
+    <script th:src="@{/vendor/amcharts/amstock.js}"></script>
+    <script th:src="@{/vendor/amcharts/lang/zh.js}"></script>
+    <script th:src="@{/vendor/amcharts/plugins/export/export.min.js}"></script>
+    <script th:src="@{/vendor/amcharts/plugins/export/lang/zh.js}"></script>
+    <link rel="stylesheet" th:href="@{/vendor/amcharts/plugins/export/export.css}" type="text/css" media="all" />
+    <script th:src="@{/vendor/amcharts/themes/light.js}"></script>
+
+    <!-- DataTables -->
+    <link rel="stylesheet" th:href="@{/vendor/datatables/css/dataTables.bootstrap.min.css}" type="text/css" media="all" />
+    <script th:src="@{/vendor/datatables/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/js/dataTables.bootstrap.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/vendor/datetimepicker/moment-with-locales.js}"></script>
+
+    <script th:src="@{/js/BackTestReporting.js}"></script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+       
+        <div id="page-wrapper" layout:fragment="content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">盈亏统计</h2>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+
+                <div class="col-lg-4">
+                </div> 
+                
+                <div class="col-lg-8">
+                    <span>操作：</span>
+                    <button type="button" id="startBtn" class="btn btn-success">启动</button>
+                    <button type="button" id="endBtn" class="btn btn-danger">停止</button>
+                </div>
+                
+            </div>
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="backtestOverview"></div>   
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">交易流水</h2>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table id="tradeRecordTable" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>创建时间</th>
+                                <th>成交时间</th>
+                                <th>股票代码</th>
+                                <th>方向</th>
+                                <th>数量</th>
+                                <th>价格</th>
+                                <th>佣金</th>
+                                <th>印花税</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+</body>
+
+</html>

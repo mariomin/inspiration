@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  
+  <class name="com.huatai.common.transaction.Fund" schema="TRANSACTION" table="T_FUND" polymorphism="explicit">
+  	<composite-id>
+	    <key-property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+		<key-property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+			<type 	name="org.hibernate.type.EnumType">
+   				<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       			<param 	name="type">12</param>
+   			</type>
+		</key-property>
+		<key-property 	column="CURRENCY" 				name="currency" 				length="3">
+	   		<type 	name="org.hibernate.type.EnumType">
+	   			<param 	name="enumClass">com.huatai.common.type.Currency</param>   
+	       		<param 	name="type">12</param>
+	   		</type>
+		</key-property>
+  	</composite-id>
+    <property 	column="YESTERDAT_SETTLED_CASH" 		name="yesterdaySettledCash" 			type="java.lang.Double"/>
+    <property 	column="TRADABLE_CASH" 					name="tradableCash" 					type="java.lang.Double"/>
+	<property 	column="FREEZED_CASH" 					name="freezedCash" 						type="java.lang.Double"/>
+	<property 	column="HOLDING_CASH" 					name="holdingCash" 						type="java.lang.Double"/>
+    <property 	column="CUM_BUY_TRADE_AMOUNT" 			name="cumBuyTradeAmount" 				type="java.lang.Double"/>
+    <property 	column="CUM_SELL_TRADE_AMOUNT" 			name="cumSellTradeAmount" 				type="java.lang.Double"/>
+    <property 	column="CREATED" 						name="created" 							type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 						name="modified" 						type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.transaction.TradingFund" schema="TRANSACTION" table="T_TRADING_FUND" polymorphism="explicit">
+  	<composite-id>
+	    <key-property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+		<key-property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+			<type 	name="org.hibernate.type.EnumType">
+   				<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       			<param 	name="type">12</param>
+   			</type>
+		</key-property>
+		<key-property 	column="TRADING_ACCOUNT" 		name="tradingAccount" 			type="java.lang.String"/>
+		<key-property 	column="CURRENCY" 				name="currency" 				length="3">
+	   		<type 	name="org.hibernate.type.EnumType">
+	   			<param 	name="enumClass">com.huatai.common.type.Currency</param>   
+	       		<param 	name="type">12</param>
+	   		</type>
+		</key-property>
+  	</composite-id>
+    <property 	column="YESTERDAT_SETTLED_CASH" 		name="yesterdaySettledCash" 			type="java.lang.Double"/>
+	 <property 	column="TRADABLE_CASH" 					name="tradableCash" 					type="java.lang.Double"/>
+	 <property 	column="FREEZED_CASH" 					name="freezedCash" 						type="java.lang.Double"/>
+    <property 	column="HOLDING_CASH" 					name="holdingCash" 						type="java.lang.Double"/>
+    <property 	column="CUM_BUY_TRADE_AMOUNT" 			name="cumBuyTradeAmount" 				type="java.lang.Double"/>
+    <property 	column="CUM_SELL_TRADE_AMOUNT" 			name="cumSellTradeAmount" 				type="java.lang.Double"/>
+    <property 	column="CREATED" 						name="created" 							type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 						name="modified" 						type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.transaction.Position" schema="TRANSACTION" table="T_POSITION" polymorphism="explicit">
+  	<composite-id>
+	    <key-property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+		<key-property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+			<type 	name="org.hibernate.type.EnumType">
+   				<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       			<param 	name="type">12</param>
+   			</type>
+		</key-property>
+		<key-property 	column="SECURITY_ACCOUNT" 		name="securityAccount" 			type="java.lang.String"/>
+		<key-property 	column="SYMBOL" 				name="symbol" 					type="java.lang.String"/>
+  	</composite-id>
+    <property	column="YESTERDAY_SETTLED_BOUGHT_AMOUNT" 		name="yesterdaySettledBoughtAmount" 		type="java.lang.Double"/>
+    <property 	column="YESTERDAY_SETTLED_BOUGHT_QTY" 			name="yesterdaySettledBoughtQty" 			type="java.lang.Double"/>
+    <property 	column="YESTERDAY_SETTLED_SELL_AMOUNT" 			name="yesterdaySettledSoldAmount" 			type="java.lang.Double"/>
+    <property	column="YESTERDAY_SETTLED_SELL_QTY" 			name="yesterdaySettledSoldQty" 				type="java.lang.Double"/>
+    <property 	column="INTRADAY_BOUGHT_AMOUNT" 				name="intradayBoughtAmount" 				type="java.lang.Double"/>
+    <property 	column="INTRADAY_BOUGHT_QTY" 					name="intradayBoughtQty" 					type="java.lang.Double"/>
+    <property	column="INTRADAY_SOLD_AMOUNT" 					name="intradaySoldAmount" 					type="java.lang.Double"/>
+    <property 	column="INTRADAY_SOLD_QTY" 						name="intradaySoldQty" 						type="java.lang.Double"/>
+    <property 	column="TRADABLE_QTY" 							name="tradableQty" 							type="java.lang.Double"/>
+    <property	column="HOLDING_QTY" 							name="holdingQty" 							type="java.lang.Double"/>
+    <property 	column="AVG_COST" 								name="avgCost" 								type="java.lang.Double"/>
+    <property 	column="FREEZED_QTY" 							name="freezedQty" 							type="java.lang.Double"/>
+    <property 	column="CREATED" 								name="created" 								type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 								name="modified" 							type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.transaction.TradingPosition" schema="TRANSACTION" table="T_TRADING_POSITION" polymorphism="explicit">
+  	<composite-id>
+	    <key-property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+		<key-property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+			<type 	name="org.hibernate.type.EnumType">
+   				<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       			<param 	name="type">12</param>
+   			</type>
+		</key-property>
+		<key-property 	column="TRADING_ACCOUNT" 		name="tradingAccount" 			type="java.lang.String"/>
+		<key-property 	column="SECURITY_ACCOUNT" 		name="securityAccount" 			type="java.lang.String"/>
+		<key-property 	column="SYMBOL" 				name="symbol" 					type="java.lang.String"/>
+  	</composite-id>
+  	<property	column="YESTERDAY_SETTLED_BOUGHT_AMOUNT" 		name="yesterdaySettledBoughtAmount" 		type="java.lang.Double"/>
+    <property 	column="YESTERDAY_SETTLED_BOUGHT_QTY" 			name="yesterdaySettledBoughtQty" 			type="java.lang.Double"/>
+    <property 	column="YESTERDAY_SETTLED_SELL_AMOUNT" 			name="yesterdaySettledSoldAmount" 			type="java.lang.Double"/>
+    <property	column="YESTERDAY_SETTLED_SELL_QTY" 			name="yesterdaySettledSoldQty" 				type="java.lang.Double"/>
+    <property 	column="INTRADAY_BOUGHT_AMOUNT" 				name="intradayBoughtAmount" 				type="java.lang.Double"/>
+    <property 	column="INTRADAY_BOUGHT_QTY" 					name="intradayBoughtQty" 					type="java.lang.Double"/>
+    <property	column="INTRADAY_SOLD_AMOUNT" 					name="intradaySoldAmount" 					type="java.lang.Double"/>
+    <property 	column="INTRADAY_SOLD_QTY" 						name="intradaySoldQty" 						type="java.lang.Double"/>
+    <property 	column="TRADABLE_QTY" 							name="tradableQty" 							type="java.lang.Double"/>
+    <property	column="HOLDING_QTY" 							name="holdingQty" 							type="java.lang.Double"/>
+    <property 	column="AVG_COST" 								name="avgCost" 								type="java.lang.Double"/>
+    <property 	column="FREEZED_QTY" 							name="freezedQty" 							type="java.lang.Double"/>
+    <property 	column="CREATED" 								name="created" 								type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 								name="modified" 							type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.transaction.PortfolioPosition" schema="TRANSACTION" table="T_PORTFOLIO_POSITION" polymorphism="explicit">
+  	<composite-id>
+	    <key-property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+		<key-property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+		<key-property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+			<type 	name="org.hibernate.type.EnumType">
+   				<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       			<param 	name="type">12</param>
+   			</type>
+		</key-property>
+		<key-property 	column="TRADING_ACCOUNT" 		name="tradingAccount" 			type="java.lang.String"/>
+		<key-property 	column="SECURITY_ACCOUNT" 		name="securityAccount" 			type="java.lang.String"/>
+		<key-property 	column="SYMBOL" 				name="symbol" 					type="java.lang.String"/>
+		<key-property 	column="PORTFOLIO_NO" 			name="portfolioNo" 				type="java.lang.String"/>
+  	</composite-id>
+	<property	column="PORTFOLIO_NAME" 						name="portfolioName" 						type="java.lang.String"/>
+	<property	column="PORTFOLIO_TYPE" 						name="portfolioType" 						type="java.lang.String"/>
+    <property	column="YESTERDAY_SETTLED_BOUGHT_AMOUNT" 		name="yesterdaySettledBoughtAmount" 		type="java.lang.Double"/>
+    <property 	column="YESTERDAY_SETTLED_BOUGHT_QTY" 			name="yesterdaySettledBoughtQty" 			type="java.lang.Double"/>
+    <property 	column="YESTERDAY_SETTLED_SELL_AMOUNT" 			name="yesterdaySettledSoldAmount" 			type="java.lang.Double"/>
+    <property	column="YESTERDAY_SETTLED_SELL_QTY" 			name="yesterdaySettledSoldQty" 				type="java.lang.Double"/>
+    <property 	column="INTRADAY_BOUGHT_AMOUNT" 				name="intradayBoughtAmount" 				type="java.lang.Double"/>
+    <property 	column="INTRADAY_BOUGHT_QTY" 					name="intradayBoughtQty" 					type="java.lang.Double"/>
+    <property	column="INTRADAY_SOLD_AMOUNT" 					name="intradaySoldAmount" 					type="java.lang.Double"/>
+    <property 	column="INTRADAY_SOLD_QTY" 						name="intradaySoldQty" 						type="java.lang.Double"/>
+    <property 	column="TRADABLE_QTY" 							name="tradableQty" 							type="java.lang.Double"/>
+    <property	column="HOLDING_QTY" 							name="holdingQty" 							type="java.lang.Double"/>
+    <property 	column="AVG_COST" 								name="avgCost" 								type="java.lang.Double"/>
+    <property 	column="FREEZED_QTY" 							name="freezedQty" 							type="java.lang.Double"/>
+    <property 	column="CREATED" 								name="created" 								type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 								name="modified" 							type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.business.BasketOrder" schema="TRANSACTION" table="T_BASKET_ORDER" polymorphism="explicit"> 
+    <id 	  	column="OBJECT_ID" 				name="id" 						type="java.lang.String"/>
+    <property 	column="LIST_ID" 				name="listId" 					type="java.lang.String"/>
+    <property 	column="LIST_ORDER_STATUS" 		name="basketOrderStatus" 		length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.BasketOrderStatus</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+    <property 	column="CREATED" 						name="created" 						type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 						name="modified" 					type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.business.AlgoOrder" schema="TRANSACTION" table="T_ALGO_ORDER" polymorphism="explicit"> 
+    <id 	  	column="OBJECT_ID" 				name="id" 						type="java.lang.String"/>
+    <property 	column="CLIENT_ORDER_ID" 		name="clOrdId"  				type="java.lang.String"/>
+    <property 	column="AFFILIATED_LIST_ID" 	name="affiliatedListId" 		type="java.lang.String"/> 
+    <property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+	<property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+	<property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+	<property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="TRADING_ACCOUNT" 		name="tradingAccount" 			type="java.lang.String"/>
+	<property 	column="SECURITY_ACCOUNT" 		name="securityAccount" 			type="java.lang.String"/>
+	<property 	column="EXCHANGE_TYPE" 			name="exchangeType" 			length="4">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.ExchangeType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="SYMBOL" 				name="symbol" 					type="java.lang.String"/>
+	<property 	column="SECURITY_TYPE" 			name="securityType" 			length="10">
+	   	<type 	name="org.hibernate.type.EnumType">
+	   		<param 	name="enumClass">com.huatai.common.type.SecurityType</param>   
+	       	<param 	name="type">12</param>
+	   	</type>
+	</property>
+	<property 	column="PORTFOLIO_NO" 			name="portfolioNo" 				type="java.lang.String"/>
+	<property 	column="PORTFOLIO_Type" 		name="portfolioType" 			type="java.lang.String"/>
+    <property 	column="TRANSACT_TIME" 			name="transactTime" 			type="java.sql.Timestamp"/>
+    <property 	column="ORDER_TYPE" 			name="orderType" 				length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrderType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="ORDER_STATUS" 			name="ordStatus" 		length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrdStatus</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="ORDER_SIDE" 			name="orderSide" 		length="10">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrderSide</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="CURRENCY" 				name="currency" 		length="10">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.Currency</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="QUANTITY" 			name="quantity" 		type="java.lang.Double"/>
+	<property 	column="PRICE" 				name="price" 			type="java.lang.Double"/>
+	<property 	column="CUM_QUANTITY" 		name="cumQty" 			type="java.lang.Double"/>
+	<property 	column="AVERAGE_PRICE" 		name="avgPx" 			type="java.lang.Double"/>
+	<property 	column="LAST_QUANTITY" 		name="lastQty" 			type="java.lang.Double"/>
+	<property 	column="LAST_PRICE" 		name="lastPx" 			type="java.lang.Double"/>
+	<property 	column="TIME_IN_FORCE" 		name="timeInForce"  	type="java.lang.Character"/>
+	<property 	column="MAX_PRICE_LEVELS" 	name="maxPriceLevels"  	type="java.lang.Integer"/>
+	<property 	column="MIN_QUANTITY" 		name="minQty" 			type="java.lang.Double"/>
+	<property 	column="Algo" 				name="algo" 			type="java.lang.String"/>
+	<property 	column="SOURCE"				name="source" 			type="java.lang.String"/>
+	<property 	column="SENDER"				name="sender" 			type="java.lang.String"/>
+	<property 	column="FIELDS" 			name="fields" 			type="java.lang.String"/>
+	<property 	column="CREATED" 			name="created" 			type="java.sql.Timestamp"/>
+	<property 	column="MODIFIED" 			name="modified" 		type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.business.NonTradingSessionOrderIndex" schema="TRANSACTION" table="T_NON_TRADING_SESSION_ORDER_INDEX" polymorphism="explicit">
+  	<id 		column="ORDER_ID" 			name="orderId" 			type="java.lang.String"/>
+  	<property 	column="CLORD_ID" 			name="clOrdId"			type="java.lang.String"/>
+  	<property 	column="SYMBOL" 			name="symbol"			type="java.lang.String"/>
+  	<property 	column="EXCHANGE_TYPE" 			name="exchangeType" 			length="4">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.ExchangeType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+  	<property 	column="CANCEL_ORDER" 		name="cancelOrder"		type="java.lang.Boolean"/>
+  	<property	column="PROCESSED"			name="processed"		type="java.lang.Boolean"/>
+  </class>
+  
+  <class name="com.huatai.common.business.ExchangeOrder" schema="TRANSACTION" table="T_EXCHANGE_ORDER" polymorphism="explicit"> 
+    <id 	  	column="OBJECT_ID" 				name="id" 						type="java.lang.String"/>
+    <property 	column="ALGO_ORDER_ID" 			name="algoOrderId" 				type="java.lang.String"/>
+    <property 	column="CLIENT_ORDER_ID" 		name="clOrdId"  				type="java.lang.String"/>
+	<property 	column="REPORT_NO" 				name="reportNo"  				type="java.lang.String"/>
+	<property 	column="PBU"	 				name="pbu" 						type="java.lang.String"/>
+	<property 	column="TRANSACT_TIME" 			name="transactTime"  			type="java.sql.Timestamp"/>
+    <property 	column="AFFILIATED_LIST_ID" 	name="affiliatedListId" 		type="java.lang.String"/> 
+    <property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 			type="java.lang.String"/>
+	<property	column="PRODUCT_ACCOUNT" 		name="productAccount" 			type="java.lang.String"/>
+	<property 	column="ASSET_ACCOUNT" 			name="assetAccount" 			type="java.lang.String"/>
+	<property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 		length="20">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="TRADING_ACCOUNT" 		name="tradingAccount" 			type="java.lang.String"/>
+	<property 	column="SECURITY_ACCOUNT" 		name="securityAccount" 			type="java.lang.String"/>
+	<property 	column="EXCHANGE_TYPE" 			name="exchangeType" 			length="4">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.ExchangeType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="SYMBOL" 				name="symbol" 					type="java.lang.String"/>
+	<property 	column="SECURITY_TYPE" 			name="securityType" 			length="10">
+	   	<type 	name="org.hibernate.type.EnumType">
+	   		<param 	name="enumClass">com.huatai.common.type.SecurityType</param>   
+	       	<param 	name="type">12</param>
+	   	</type>
+	</property>
+	<property 	column="PORTFOLIO_NO" 			name="portfolioNo" 				type="java.lang.String"/>
+	<property 	column="PORTFOLIO_Type" 		name="portfolioType" 			type="java.lang.String"/>
+	<property 	column="ORDER_TYPE" 			name="orderType" 				length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrderType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="ORDER_STATUS" 			name="ordStatus" 				length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrdStatus</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="ORDER_SIDE" 			name="orderSide" 				length="10">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrderSide</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="CURRENCY" 				name="currency" 				length="10">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.Currency</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="QUANTITY" 			name="quantity" 		type="java.lang.Double"/>
+	<property 	column="PRICE" 				name="price" 			type="java.lang.Double"/>
+	<property 	column="CUM_QUANTITY" 		name="cumQty" 			type="java.lang.Double"/>
+	<property 	column="AVERAGE_PRICE" 		name="avgPx" 			type="java.lang.Double"/>
+	<property 	column="CUM_AMOUNT" 		name="cumAmount" 		type="java.lang.Double"/>
+	<property 	column="FREEZED_CASH" 		name="freezedCash" 		type="java.lang.Double"/>
+	<property 	column="CUM_NET_MONEY" 		name="cumNetMoney" 		type="java.lang.Double"/>
+	<property 	column="CANCELLED_QTY" 		name="cancelledQty" 	type="java.lang.Double"/>
+	<property 	column="LAST_QUANTITY" 		name="lastQty" 			type="java.lang.Double"/>
+	<property 	column="LAST_PRICE" 		name="lastPx" 			type="java.lang.Double"/>
+	<property 	column="TIME_IN_FORCE" 		name="timeInForce"  	type="java.lang.Character"/>
+	<property 	column="MAX_PRICE_LEVELS" 	name="maxPriceLevels"  	type="java.lang.Integer"/>
+	<property 	column="MIN_QUANTITY" 		name="minQty" 			type="java.lang.Double"/>
+	<property 	column="FIELDS" 			name="fields" 			type="java.lang.String"/>
+	<property 	column="SOURCE"				name="source" 			type="java.lang.String"/>
+	<property 	column="SENDER"				name="sender" 			type="java.lang.String"/>
+	<property 	column="CREATED" 			name="created" 			type="java.sql.Timestamp"/>
+	<property 	column="MODIFIED" 			name="modified" 		type="java.sql.Timestamp"/>
+  </class> 
+  
+  <class name="com.huatai.common.business.Execution" schema="TRANSACTION" table="T_EXECUTION" polymorphism="explicit"> 
+    <id 	  	column="OBJECT_ID" 				name="id" 					type="java.lang.String"/> 
+    <property 	column="ALGO_ORDER_ID" 			name="algoOrderId" 			type="java.lang.String"/>
+    <property 	column="CLIENT_ORDER_ID" 		name="clOrdId"  			type="java.lang.String"/>
+    <property 	column="INVESTOR_ACCOUNT" 		name="investorAccount" 		type="java.lang.String"/>
+	<property	column="PRODUCT_ACCOUNT" 		name="productAccount" 		type="java.lang.String"/>
+	<property 	column="ASSET_ACCOUNT" 			name="assetAccount" 		type="java.lang.String"/>
+	<property 	column="ASSET_ACCOUNT_TYPE" 	name="assetAccountType" 	length="20">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.AssetAccountType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="TRADING_ACCOUNT" 		name="tradingAccount" 		type="java.lang.String"/>
+	<property 	column="SECURITY_ACCOUNT" 		name="securityAccount" 		type="java.lang.String"/>
+	<property 	column="EXCHANGE_TYPE" 			name="exchangeType" 		length="4">
+		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.ExchangeType</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="SYMBOL" 				name="symbol" 				type="java.lang.String"/>
+	<property 	column="ORDER_SIDE" 			name="orderSide" 			length="10">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.OrderSide</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+	<property 	column="QUANTITY" 			name="quantity" 		type="java.lang.Double"/>
+	<property 	column="PRICE" 				name="price" 			type="java.lang.Double"/>
+	<property 	column="ORDER_ID" 			name="orderId" 			type="java.lang.String"/>
+	<property 	column="EXECUTION_ID" 		name="execId" 			type="java.lang.String"/>
+	<property 	column="CREATED" 			name="created" 			type="java.sql.Timestamp"/>
+	<property 	column="MODIFIED" 			name="modified" 		type="java.sql.Timestamp"/>
+  </class> 
+  
+  <class name="com.huatai.common.transaction.CashTransactionSerial" schema="TRANSACTION" table="T_CASH_TRANSACTION_SERIAL" polymorphism="explicit"> 
+    <id 	  	column="SERIAL_NO" 				name="id" 						type="java.lang.String"/>
+    <property 	column="FUND_ACCOUNT" 			name="fundAccount" 				type="java.lang.String"/>
+    <property 	column="TOTAL_CASH" 			name="originTotalCash" 			type="java.lang.Double"/>
+    <property 	column="TOTAL_CASH_DELTA" 		name="totalCashDelta" 			type="java.lang.Double"/>
+    <property 	column="AVAILABLE_CASH" 		name="originAvailableCash" 		type="java.lang.Double"/>
+    <property 	column="AVAILABLE_CASH_DELTA" 	name="availableCashDelta" 		type="java.lang.Double"/>
+    <property 	column="FETCHABLE_CASH" 		name="originFetchableCash" 		type="java.lang.Double"/>
+    <property 	column="FETCHABLE_CASH_DELTA" 	name="fetchableCashDelta" 		type="java.lang.Double"/>
+    <property 	column="SIDE" 					name="side" 					length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.transaction.TransactionSide</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+    <property 	column="NOTE" 					name="note" 					type="java.lang.String"/>
+    <property 	column="CREATED" 				name="created" 					type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.transaction.PositionTransactionSerial" schema="TRANSACTION" table="T_POSITION_TRANSACTION_SERIAL" polymorphism="explicit"> 
+    <id 	  	column="SERIAL_NO" 					name="id" 						type="java.lang.String"/>
+    <property 	column="SECURITY_ACCOUNT" 			name="securityAccount" 			type="java.lang.String"/>
+    <property 	column="SYMBOL" 					name="symbol" 					type="java.lang.String"/>
+    <property 	column="TOTAL_QUANTITY" 			name="originTotalQuantity" 		type="java.lang.Double"/>
+    <property 	column="TOTAL_QUANTITY_DELTA" 		name="totalQuantityDelta" 		type="java.lang.Double"/>
+    <property 	column="AVAILABLE_QUANTITY" 		name="originAvailableQuantity" 	type="java.lang.Double"/>
+    <property 	column="AVAILABLE_QUANTITY_DELTA" 	name="availableQuantityDelta" 	type="java.lang.Double"/>
+    <property 	column="PRICE" 						name="price" 					type="java.lang.Double"/>
+    <property 	column="SIDE" 						name="side" 					length="30">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param name="enumClass">com.huatai.common.transaction.TransactionSide</param>   
+       		<param name="type">12</param>
+   		</type>
+	</property>
+    <property 	column="NOTE" 						name="note" 					type="java.lang.String"/>
+    <property 	column="CREATED" 					name="created" 					type="java.sql.Timestamp"/>
+  </class>
+  
+</hibernate-mapping> 

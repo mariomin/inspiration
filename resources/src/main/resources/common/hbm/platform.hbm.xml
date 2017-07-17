@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.huatai.platform.downstream.count.CountReference" schema="PLATFORM" table="T_COUNT_REFERENCE" polymorphism="explicit">
+    <id 		column="COUNT_ID" 		name="countId" 				type="java.lang.String"/>
+    <property 	column="COUNT" 			name="count" 				type="java.lang.Integer"/>
+	<property 	column="CREATED" 		name="created" 				type="java.sql.Timestamp"/>
+    <property 	column="MODIFIED" 		name="modified" 			type="java.sql.Timestamp"/>
+  </class>
+  
+  <class name="com.huatai.common.refdata.RefData" schema="PLATFORM" table="T_REFDATA" polymorphism="explicit"> 
+	<id 	  column="SYMBOL" 								name="symbol" 						type="java.lang.String"/>
+    <property column="CHINESE_NAME" 						name="chineseName" 					type="java.lang.String"/>
+    <property column="SPELL_CODE" 							name="spellCode" 					type="java.lang.String"/>
+    <property column="ENGLISH_NAME" 						name="englishName" 					type="java.lang.String"/>
+    <property column="INDUSTRY_CLASSIFICATION" 				name="industryClassification" 		type="java.lang.String"/>
+    <property 	column="CURRENCY" 							name="currency" 					length="10">
+   		<type 	name="org.hibernate.type.EnumType">
+   			<param 	name="enumClass">com.huatai.common.type.Currency</param>   
+       		<param 	name="type">12</param>
+   		</type>
+	</property>
+    <property column="PAR_VALUE" 							name="parValue" 					type="java.lang.Double"/>
+    <property column="OUTSTANDING_SHARE" 					name="outstandingShare" 			type="java.lang.Double"/>
+    <property column="PUBLIC_FLOAT_SHARE_QUANTITY" 			name="publicFloatShareQuantity"     type="java.lang.Double"/>
+    <property column="INTEREST_ACCRUAL_DATE" 				name="interestAccrualDate" 			type="java.lang.Integer"/>
+	<property column="CRD_BUY_UNDERLYING" 			    	name="crdBuyUnderlying" 			type="java.lang.String"/>
+    <property column="CRD_SELL_UNDERLYING" 					name="crdSellUnderlying" 			type="java.lang.String"/>
+  	<property column="GAGE_RATIO" 							name="gageRatio" 					type="java.lang.Double"/>
+    <property column="STATUS" 								name="status" 						type="java.lang.String"/>
+  	<property column="QTY_UNIT" 						    name="qtyUnit" 						type="java.lang.Integer"/>
+	<property column="PREV_CLOSE_PX" 						name="previousClosingPx" 			type="java.lang.Double"/>
+	<property column="HIGH_LIMIT_PX" 						name="highLimitPx" 					type="java.lang.Double"/>
+	<property column="LOW_LIMIT_PX" 						name="lowLimitPx" 					type="java.lang.Double"/>
+	<property column="SECURITY_TYPE" 						name="securityType" 				type="java.lang.Integer"/>
+	<property column="CREATED" 								name="created" 						type="java.sql.Timestamp"/>
+    <property column="MODIFIED" 							name="modified" 					type="java.sql.Timestamp"/>
+  </class>
+  
+</hibernate-mapping> 

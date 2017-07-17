@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+	<context:annotation-config />
+
+    <bean id="acceptorSettings" class="java.lang.String">
+       	<constructor-arg type="String"><value><![CDATA[
+[DEFAULT]
+PersistMessages=Y
+FileLogPath=target/test/fix
+FileStorePath=target/test/store
+ConnectionType=acceptor
+StartTime=00:00:00
+EndTime=00:00:00
+SenderCompID=ACCEPTOR1
+SocketAcceptPort=13678
+ValidateUserDefinedFields=N
+DefaultApplVerID=FIX.5.0SP2
+AppDataDictionary=FIX50SP2.xml
+TransportDataDictionary=FIXT11.xml
+
+[SESSION]
+BeginString=FIXT.1.1
+TargetCompID=INITIATOR1
+
+		]]></value></constructor-arg>
+	</bean>
+
+    <bean id="initiatorSettings" class="java.lang.String">
+    	<constructor-arg type="String"><value><![CDATA[
+[DEFAULT]
+PersistMessages=Y
+FileLogPath=target/test/fix
+FileStorePath=target/test/store
+ConnectionType=initiator
+ReconnectInterval=5
+SenderCompID=INITIATOR1
+HeartBtInt=30
+StartTime=00:00:00
+EndTime=00:00:00
+ValidateUserDefinedFields=N
+DefaultApplVerID=FIX.5.0SP2
+AppDataDictionary=FIX50SP2.xml
+TransportDataDictionary=FIXT11.xml
+
+[SESSION]
+BeginString=FIXT.1.1
+SocketConnectPort=13678
+SocketConnectHost=localhost
+TargetCompID=ACCEPTOR1
+		]]></value></constructor-arg>
+	</bean>	
+</beans>

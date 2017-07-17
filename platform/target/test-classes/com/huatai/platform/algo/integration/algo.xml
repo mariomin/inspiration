@@ -1,0 +1,142 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+	<import resource="classpath:common/settings.xml" />
+	<import resource="classpath:common/databaseSession.xml" />
+
+	<bean id="platform" class="com.huatai.platform.Platform">
+		<property name="heartBeatInterval" value="${heartbeat.interval}" />
+		<property name="plugins">
+			<list>
+				<ref bean="eventManager" />
+				<ref bean="scheduleManager" />
+				<ref bean="upStreamManager" />
+				<ref bean="algoTradeManager" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="systemInfo" class="com.huatai.common.SystemInfo">
+		<property name="env" value="${env}" />
+		<property name="category" value="${category}" />
+		<property name="id" value="strategy" />
+		<property name="type" value="Algo" />
+	</bean>
+
+	<bean id="waitStrategy" class="${disruptor.wait.strategy}" scope="prototype" />
+
+	<bean id="eventManager" class="com.huatai.platform.event.RemoteEventManager"
+		depends-on="transportFactory">
+		<constructor-arg>
+			<ref bean="systemInfo" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="scheduleManager" class="com.huatai.platform.schedule.ScheduleManager" />
+
+	<bean id="exchangeHelper" class="com.huatai.platform.downstream.adaptor.ExchangeHelper">
+		<property name="MIN_BEGIN_ORDER_ID_IN_BRANCH" value="500000" />
+		<property name="MAX_END_ORDER_ID_IN_BRANCH" value="999999" />
+		<property name="increase" value="1000" />
+	</bean>
+
+	<bean id="algoTradeManager" class="com.huatai.platform.algo.AlgoTradeManager">
+		<property name="skipRefData" value="true" />
+	</bean>
+
+	<bean id="strategyContainer" class="com.huatai.platform.algo.StrategyContainer"
+		scope="prototype">
+		<property name="esperConfig" value="platform/esper.xml" />
+	</bean>
+
+	<bean id="strategyFactory" class="com.huatai.platform.algo.StrategyFactory"/>
+
+	<bean id="upStreamManager" class="com.huatai.platform.upstream.UpStreamManager">
+		<constructor-arg>
+			<list>
+				<ref bean="fixUpStreamAdaptor" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fixUpStreamAdaptor" class="com.huatai.platform.upstream.fix.FixUpStreamAdaptor">
+		<property name="charset" value="UTF-8" />
+		<constructor-arg>
+			<list>
+				<value>com.huatai.platform.upstream.fix.FixUpStreamProcessor</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg type="String">
+			<value><![CDATA[
+[default]
+PersistMessages=Y
+FileLogPath=log/fix/upstream/fixUpStreamAdaptor/log
+FileStorePath=log/fix/upstream/fixUpStreamAdaptor/store
+ConnectionType=acceptor
+SocketAcceptPort=14028
+SenderCompID=dev.htquant-001.upstream-001.fixUpStreamAdaptor-algo
+StartTime=00:00:00
+EndTime=00:00:00
+ResetOnLogon=Y
+UseDataDictionary=Y
+CheckLatency=N
+ValidateUserDefinedFields=N
+AppDataDictionary=common/dic/htquant/FIX50SP2.xml
+TransportDataDictionary=common/dic/htquant/FIXT11.xml
+TargetCompID=*
+TargetSubID=*
+
+[session]
+BeginString=FIXT.1.1
+DefaultApplVerID=FIX.5.0SP2
+AcceptorTemplate=Y
+		]]></value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fixBaseClient" class="com.huatai.platform.client.FixBaseClient">
+		<property name="initPeriod" value="3000" />
+		<constructor-arg>
+			<list>
+				<ref bean="fixClientAdaptor" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fixClientAdaptor" class="com.huatai.platform.client.FixClientAdaptor">
+		<property name="charset" value="UTF-8" />
+		<constructor-arg type="String">
+			<value><![CDATA[		
+[default]
+PersistMessages=Y
+FileLogPath=log/fix/fixtestclient/fixOMSClient/log
+FileStorePath=log/fix/fixtestclient/fixOMSClient/store
+ConnectionType=initiator
+SocketConnectHost=localhost
+SocketConnectPort=14028
+SenderCompID=fixOMSClient-algo
+StartTime=00:00:00
+EndTime=00:00:00
+HeartBtInt=30
+ReconnectInterval=5
+ResetOnLogon=Y
+UseDataDictionary=Y
+CheckLatency=N
+ValidateUserDefinedFields=N
+DefaultApplVerID=FIX.5.0SP2
+AppDataDictionary=common/dic/htquant/FIX50SP2.xml
+TransportDataDictionary=common/dic/htquant/FIXT11.xml
+
+[session]
+BeginString=FIXT.1.1
+TargetCompID=dev.htquant-001.upstream-001.fixUpStreamAdaptor-algo
+		]]></value>
+		</constructor-arg>
+	</bean>
+
+</beans>

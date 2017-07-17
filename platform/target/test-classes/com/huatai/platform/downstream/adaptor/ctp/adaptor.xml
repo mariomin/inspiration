@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+
+	<bean id="ctpAdaptor" class="com.huatai.platform.downstream.adaptor.ctp.CTPExchangeAdaptor">
+		<constructor-arg>
+			<list>
+				<ref bean="ctpExchangeService" />
+			</list>
+		</constructor-arg>
+		<constructor-arg ref="downstreamListener" />
+	</bean>
+	
+	<bean id="ctpExchangeService" class="com.huatai.platform.downstream.adaptor.ctp.CTPExchangeService">
+		<constructor-arg ref="ctpSettings" />
+		<constructor-arg ref="idGenerator" />
+	</bean>
+
+	<bean id="downstreamListener" class="com.huatai.platform.downstream.TestDownStreamListener" />
+	
+	<bean id="ctpSettings" class="com.huatai.platform.downstream.adaptor.ctp.CTPSettings" >
+		<property name="serverAddress" value="tcp://fz-jy1.htgwf.net:61205"/>
+		<property name="brokerID" value="2318"/>
+		<property name="userID" value="00024235"/>
+		<property name="password" value="123123"/>
+		<property name="userProductInfo" value="htpb_cts"/>
+		<property name="authCode" value="QL636NMFSE6JVFVC"/>
+	</bean>
+	
+	<bean id="idGenerator" class="java.util.concurrent.atomic.AtomicInteger"/>
+
+</beans>

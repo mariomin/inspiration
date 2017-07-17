@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<configuration name="defaultConfiguration" status="warn" strict="true" monitorInterval="5" shutdownHook="disable" packages="com.huatai.common.log.kafka">
+	<properties>
+		<property name="patternLayout">%d{ISO8601} [%t] %-5level %logger{36} - %msg%n%throwable{full}</property>
+	</properties>
+ 	<appenders>
+	    <Console name="Console" target="SYSTEM_OUT">
+			<layout type="PatternLayout" pattern="${patternLayout}"/>
+		</Console>
+	</appenders>
+	<loggers>
+		<root level="error">
+			<appender-ref ref="Console"/>
+		</root>
+		<logger name="org.jboss" level="info"/>
+		<logger name="org.hibernate" level="info"/>
+		<logger name="org.springframework" level="info"/>
+		<logger name="org.apache.log4j" level="info"/>
+		<logger name="org.apache.mina" level="info"/>
+		<logger name="org.apache.kahadb" level="info"/>
+		<logger name="org.quickfix" level="info"/>
+		<logger name="quickfix" level="info"/>
+		<logger name="com.espertech.esper" level="info"/>
+		<logger name="com.huatai.exchange" level="error"/> 
+		<logger name="com.huatai.common" level="info"/> 
+		<logger name="com.huatai.refdata" level="info"/>
+		<logger name="com.huatai.platform" level="info"/>
+		<logger name="com.huatai.upstream" level="info"/>
+		<logger name="com.huatai.upstream.fix.FixUpStreamConnection" level="info"/>
+		<logger name="com.huatai.upstream.fix.FixUpStreamSender" level="error"/>
+		<logger name="com.huatai.marketdata" level="info"/>
+		<logger name="com.huatai.gateway" level="info"/>
+		<logger name="com.huatai.oms" level="info"/>
+		<logger name="com.huatai.strategy" level="info"/>
+		<logger name="com.huatai.platform.downstream" level="info"/>
+		<logger name="com.huatai.backtest" level="info"/>
+		<logger name="com.huatai.platform.algo" level="debug"/> 
+		<logger name="com.huatai.platform.testclient.ui" level="debug"/> 
+	</loggers>
+</configuration>

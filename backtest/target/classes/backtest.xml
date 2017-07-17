@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+			http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+	default-autowire="byName" default-lazy-init="false">
+	<context:annotation-config />
+	
+	<bean id="backTestManager" class="com.huatai.backtest.BackTestManager" init-method="init"/>
+	
+    <bean id="backTestContainer" class="com.huatai.backtest.core.BackTestContainer" scope="prototype">
+        <property name="esperConfig" value="esper.xml"/>
+        <property name="backTestMarketDataLoader" ref="backTestMarketDataLoader"/>
+    </bean>
+    
+ 	<bean id="backTestMarketDataLoader" class="com.huatai.backtest.core.BackTestMarketDataLoader">
+ 		<property name="host" value="168.168.207.9"/>
+ 		<property name="port" value="9110"/>
+ 		<property name="token" value="111"/>
+ 		<property name="useCache" value="false"/>
+	</bean>
+ 		
+	<bean id="exchange" class="com.huatai.exchange.Exchange" scope="prototype">
+		<property name="orderBookFactory" ref="orderBookFactory" />
+		<property name="delay" value="1000"/>
+		<property name="period" value="100"/>
+		<property name="autoMatch" value="false"/>
+	</bean>
+	
+	<bean id="exchangeCodes" class="com.huatai.exchange.common.DualMap">
+	    <constructor-arg>
+           	<map key-type="java.lang.String" value-type="java.lang.String">
+            	<entry key="SHSE" value="SH" />
+				<entry key="SZSE" value="SZ" />
+        	</map>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="orderBookFactory" class="com.huatai.exchange.orderbook.OrderBookFactory">
+		<constructor-arg type="String">
+			<value>com.huatai.exchange.orderbook.OrderPriceBook</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="strategyFactory" class="com.huatai.platform.algo.StrategyFactory" />
+	
+	<bean id="eventMamager" class="com.huatai.platform.event.MockEventManager" />
+	
+    <bean id="scheduleManager" class="com.huatai.platform.schedule.MockScheduleManager" />
+    
+    <bean id="replayClient" class="com.htsc.mdc.rps.client.ReplayClient">
+        <constructor-arg index="0" value="168.168.207.9" />  
+        <constructor-arg index="1" value="9110" />  
+        <constructor-arg index="2" value="111" />  
+    </bean>
+    
+</beans>

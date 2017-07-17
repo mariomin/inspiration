@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+	<import resource="dubbo-usercenter.xml" />
+
+	<bean id="o32DownStreamAdaptor" class="com.huatai.platform.downstream.adaptor.o32.O32ExchangeAdaptor">
+		<constructor-arg>
+			<list>
+				<ref bean="o32DownStreamService" />
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="o32DownStreamService" class="com.huatai.platform.downstream.adaptor.o32.O32ExchangeService">
+		<constructor-arg index="0" value="o32-test"></constructor-arg>
+		<constructor-arg index="1" value="classpath:common/o32/o32.xml"></constructor-arg>
+		<constructor-arg index="2" value="as_ufx"></constructor-arg>
+		<property name="dataPath" value="./data/o32"></property>
+	</bean>
+
+	<bean id="downstreamListener" class="com.huatai.platform.downstream.TestDownStreamListener" />
+
+	<bean class="com.huatai.platform.downstream.adaptor.o32.util.AccountServiceHelper" factory-method="getInstance">
+	</bean>
+	
+	<bean class="com.huatai.platform.downstream.adaptor.o32.common.O32BeanHelper" factory-method="getInstance">
+	</bean>
+</beans>

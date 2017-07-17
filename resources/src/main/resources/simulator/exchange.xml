@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+	<import resource="classpath:simulator/replay.xml" />
+	<import resource="classpath:simulator/fix.xml" />
+
+	<bean id="exchangeBootstrap" class="com.huatai.exchange.ExchangeBootstrap">
+		<property name="title" value="Huatai Securities Exchange Simulator"/>
+		<property name="visible" value="${simulator.visible}"/>
+		<constructor-arg>
+			<ref bean="exchange" />
+		</constructor-arg>
+		<constructor-arg>
+			<list>
+				<ref bean="marketReplayParticipant" />
+				<ref bean="fixParticipant" />
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="exchange" class="com.huatai.exchange.Exchange">
+		<property name="orderBookFactory" ref="orderBookFactory" />
+		<property name="delay" value="${simulator.delay}"/>
+		<property name="period" value="${simulator.period}"/>
+	</bean>
+	
+	<bean id="exchangeCodes" class="com.huatai.exchange.common.DualMap">
+	    <constructor-arg>
+           	<map key-type="java.lang.String" value-type="java.lang.String">
+            	<entry key="SHSE" value="SH" />
+				<entry key="SZSE" value="SZ" />
+				<entry key="SIM" value="SIM" />
+        	</map>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="orderBookFactory" class="com.huatai.exchange.orderbook.OrderBookFactory">
+		<constructor-arg type="String">
+			<value>com.huatai.exchange.orderbook.OrderBook</value>
+		</constructor-arg>
+	</bean>
+	
+</beans>

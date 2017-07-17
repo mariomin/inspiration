@@ -1,0 +1,52 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd   
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd"> 
+
+	<context:annotation-config />
+	
+	<bean id="currencyMapping" class="com.huatai.common.util.DualMap">
+	    <constructor-arg>
+           	<map key-type="java.lang.String" value-type="java.lang.String">
+            	<entry key="0" value="CNY" />
+				<entry key="1" value="USD" />
+				<entry key="2" value="HKD" />
+        	</map>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="exchangeCodeMapping" class="com.huatai.common.util.DualMap">
+	    <constructor-arg>
+           	<map key-type="java.lang.String" value-type="java.lang.String">
+            	<entry key="" value="CN" />
+				<entry key="1" value="SH" />
+				<entry key="2" value="SZ" />
+        	</map>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="securityAccountTypeMapping" class="com.huatai.common.util.DualMap">
+	    <constructor-arg>
+           	<map key-type="java.lang.String" value-type="java.lang.String">
+            	<entry key="0" value="Ordinary" />
+				<entry key="1" value="Fund" />
+				<entry key="2" value="Corporate" />
+				<entry key="3" value="BuyBack" />
+        	</map>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="securityAccountStatusMapping" class="com.huatai.common.util.DualMap">
+	    <constructor-arg>
+           	<map key-type="java.lang.String" value-type="java.lang.String">
+            	<entry key="0" value="Good" />
+				<entry key="1" value="Freezing" />
+				<entry key="2" value="Missing" />
+				<entry key="3" value="Closing" />
+        	</map>
+	    </constructor-arg>
+	</bean>
+	
+</beans>
