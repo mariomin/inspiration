@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.huatai.htquant</groupId>
-		<artifactId>htquant</artifactId>
+		<groupId>com.inspiration</groupId>
+		<artifactId>inspiration</artifactId>
 		<version>1.0-snapshot</version>
 	</parent>
-	<artifactId>htquant-backtest</artifactId>
+	<artifactId>inspiration-essay</artifactId>
 	<packaging>jar</packaging>
-	<name>HTQuant-BackTest</name>
+	<name>inspiration-essay</name>
 
 	<build>
 		<plugins>
@@ -53,21 +53,6 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>htquant-common</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>htquant-resources</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>htquant-strategy</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

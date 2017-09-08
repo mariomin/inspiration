@@ -2,18 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.huatai.htquant</groupId>
-	<artifactId>htquant</artifactId>
+	<groupId>com.inspiration</groupId>
+	<artifactId>inspiration</artifactId>
 	<version>1.0-snapshot</version>
-	<name>HTQuant</name>
+	<name>inspiration</name>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>platform</module>
-		<module>backtest</module>
-		<module>strategy</module>
-		<module>common</module>
-		<module>resources</module>
+		<module>inspiration-essay</module>
 	</modules>
 
 	<properties>
@@ -149,16 +145,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.huatai.xtrade</groupId>
-			<artifactId>xstep</artifactId>
-			<version>${xstep.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.huatai.usercenter</groupId>
-			<artifactId>usercenter-api</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-		<dependency>
 			<groupId>cn.com.htsc.htdubbox</groupId>
 			<artifactId>htdubbox</artifactId>
 			<version>${htdubbox.version}</version>
@@ -182,11 +168,6 @@
 					<artifactId>xml-apis</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.huatai.ats</groupId>
-			<artifactId>ats-exchange</artifactId>
-			<version>5.1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
