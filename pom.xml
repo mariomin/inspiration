@@ -2,11 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.inspiration</groupId>
 	<artifactId>inspiration</artifactId>
 	<version>1.0-snapshot</version>
-	<name>inspiration</name>
 	<packaging>pom</packaging>
+
+	<name>inspiration</name>
+	<url>http://maven.apache.org</url>
+
+	<developers>
+		<developer>
+			<id>mariomin</id>
+			<name>min chen</name>
+			<email>minchen210@163.com</email>
+			<roles>
+				<role>Project Manager</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<modules>
 		<module>inspiration-essay</module>
@@ -14,98 +28,17 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<quickfixj.version>1.6.3</quickfixj.version>
 		<spring-version>4.3.8.RELEASE</spring-version>
 		<log4j2-version>2.8.1</log4j2-version>
-		<htdubbox.version>1.0.0</htdubbox.version>
-		<hibernate.version>4.3.11.Final</hibernate.version>
-		<xstep.version>1.0.4</xstep.version>
 	</properties>
 
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<properties>
-				<package.release.version>${project.version}</package.release.version>
-				<profile.directory>profile/dev</profile.directory>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>qa</id>
-			<properties>
-				<package.release.version>${project.version}</package.release.version>
-				<profile.directory>profile/qa</profile.directory>
-			</properties>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<package.release.version>${release-version}</package.release.version>
-				<profile.directory>profile/prod</profile.directory>
-			</properties>
-		</profile>
-	</profiles>
-
 	<repositories>
-		<repository>
-			<id>central</id>
-			<name>Maven Central</name>
-			<url>http://repo.htzq.htsc.com.cn/nexus/content/repositories/central</url>
-		</repository>
-		<repository>
-			<id>htquant</id>
-			<name>HTQuant</name>
-			<url> http://repo.htzq.htsc.com.cn/nexus/content/repositories/htquant</url>
-		</repository>
 		<repository>
 			<id>architect</id>
 			<name>Architect</name>
 			<url>http://repo.htzq.htsc.com.cn/nexus/content/repositories/Architect</url>
 		</repository>
-		<repository>
-			<id>XTrader</id>
-			<name>XTRADER</name>
-			<url> http://repo.htzq.htsc.com.cn/nexus/content/repositories/XTrader</url>
-		</repository>
-		<repository>
-			<id>Releases</id>
-			<name>WTF</name>
-			<url>http://repo.htzq.htsc.com.cn/nexus/content/repositories/releases/</url>
-		</repository>
 	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<name>Maven Central</name>
-			<url>http://repo.htzq.htsc.com.cn/nexus/content/repositories/central</url>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-releasetrain</artifactId>
-				<version>Fowler-SR2</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate.javax.persistence</groupId>
-				<artifactId>hibernate-jpa-2.1-api</artifactId>
-				<version>1.0.0.Final</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -144,31 +77,6 @@
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>cn.com.htsc.htdubbox</groupId>
-			<artifactId>htdubbox</artifactId>
-			<version>${htdubbox.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>slf4j-log4j12</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -251,45 +159,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.quickfixj</groupId>
-			<artifactId>quickfixj-core</artifactId>
-			<version>${quickfixj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.quickfixj</groupId>
-			<artifactId>quickfixj-messages-all</artifactId>
-			<version>${quickfixj.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 			<version>4.12</version>
-		</dependency>
-		<dependency>
-			<groupId>com.espertech</groupId>
-			<artifactId>esper</artifactId>
-			<version>5.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>de.ruedigermoeller</groupId>
-			<artifactId>fst</artifactId>
-			<version>2.47</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lmax</groupId>
-			<artifactId>disruptor</artifactId>
-			<version>3.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.hundsun</groupId>
-			<artifactId>t2sdk-ext</artifactId>
-			<version>1.1.12</version>
-		</dependency>
-		<dependency>
-			<groupId>com.hundsun</groupId>
-			<artifactId>mcsdk-ext</artifactId>
-			<version>1.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -313,34 +186,10 @@
 			<version>2.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.thavam.util.concurrent</groupId>
-			<artifactId>blockingmap</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.htsc</groupId>
-			<artifactId>mdc-relay-client</artifactId>
-			<version>0.0.8</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>mdc-model</artifactId>
-					<groupId>com.htsc</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>io.netty</groupId>
-					<artifactId>netty-all</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>com.htsc</groupId>
 			<artifactId>mdc-replay-proxy-client</artifactId>
 			<version>0.0.4</version>
 			<exclusions>
-				<exclusion>
-					<artifactId>mdc-model</artifactId>
-					<groupId>com.htsc</groupId>
-				</exclusion>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
@@ -352,39 +201,14 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.htsc</groupId>
-			<artifactId>mdc-model</artifactId>
-			<version>0.1.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 			<version>4.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.tictactec</groupId>
-			<artifactId>ta-lib</artifactId>
-			<version>0.4.0</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.nativelibs4java</groupId>
-			<artifactId>bridj</artifactId>
-			<version>0.7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>nl.knaw.dans.common</groupId>
-			<artifactId>dans-dbf-lib</artifactId>
-			<version>1.0.0-beta-10</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.12</version>
 		</dependency>
 	</dependencies>
 </project>
