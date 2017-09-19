@@ -36,8 +36,6 @@ public class RunBootstrap extends SpringBootServletInitializer {
 		if (!port.equals("80")) {
 			homeUrl += ":" + port;
 		}
-
 		visitHomepage(homeUrl + context.getEnvironment().getProperty("server.context-path"));
 	}
-
 }
