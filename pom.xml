@@ -35,6 +35,13 @@
 			<version>${slf4j-version}</version>
 		</dependency>
 		<!-- log end -->
+		<!-- pinyin -->
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<!-- pinyin -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
