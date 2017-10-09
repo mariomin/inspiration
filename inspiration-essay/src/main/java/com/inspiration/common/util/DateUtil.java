@@ -1,4 +1,4 @@
-package com.inspiration.commonUtil;
+package com.inspiration.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

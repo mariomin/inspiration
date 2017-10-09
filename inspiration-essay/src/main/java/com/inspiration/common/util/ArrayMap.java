@@ -1,4 +1,4 @@
-package com.inspiration.commonUtil;
+package com.inspiration.common.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

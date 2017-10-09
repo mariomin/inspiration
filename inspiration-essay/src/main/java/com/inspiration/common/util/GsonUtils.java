@@ -1,4 +1,4 @@
-package com.inspiration.commonUtil;
+package com.inspiration.common.util;
 
 import java.lang.reflect.Type;
 import java.util.regex.Matcher;

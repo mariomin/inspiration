@@ -1,4 +1,4 @@
-package com.inspiration.commonUtil;
+package com.inspiration.common.util;
 
 public class RegularExpressionUtil {
 	public static final String dot = "\\.";

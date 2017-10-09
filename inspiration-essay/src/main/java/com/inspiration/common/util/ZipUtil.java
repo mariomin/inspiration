@@ -1,4 +1,4 @@
-package com.inspiration.commonUtil;
+package com.inspiration.common.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,20 +8,20 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class ZipUtil {
-	
+
 	public static final byte[] compress(String content) throws IOException {
-		if (content == null) return null;
-		
+		if (content == null)
+			return null;
+
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		ZipOutputStream zout = new ZipOutputStream(bout);
-		
+
 		try {
 			zout.putNextEntry(new ZipEntry("0"));
 			zout.write(content.getBytes());
 			zout.closeEntry();
 			return bout.toByteArray();
-		}
-		finally {
+		} finally {
 			if (zout != null) {
 				zout.close();
 			}
@@ -30,14 +30,15 @@ public class ZipUtil {
 			}
 		}
 	}
-	
+
 	public static final String decompress(byte[] content) throws IOException {
-		if (content == null) return null;
-		
+		if (content == null)
+			return null;
+
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		ByteArrayInputStream bin = new ByteArrayInputStream(content);
 		ZipInputStream zin = new ZipInputStream(bin);
-		
+
 		int len;
 		byte[] buffer = new byte[1024];
 		try {
@@ -46,8 +47,7 @@ public class ZipUtil {
 				bout.write(buffer, 0, len);
 			}
 			return bout.toString();
-		}
-		finally {
+		} finally {
 			if (zin != null) {
 				zin.close();
 			}
@@ -59,5 +59,5 @@ public class ZipUtil {
 			}
 		}
 	}
-	
+
 }
