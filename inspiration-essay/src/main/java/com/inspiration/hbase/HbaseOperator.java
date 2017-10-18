@@ -34,14 +34,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 
 /**
- * 
  * 说明:Hbase操作类
- *
- * @version 1.0
- *
- * @author yf
- *
- * @update 2016年3月3日
  */
 public class HbaseOperator {
 
