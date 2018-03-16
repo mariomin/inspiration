@@ -15,9 +15,9 @@ public class GsonUtils {
 	private static final Gson GSON = new Gson();
 
 	private static final Gson FORMAR_GSON = new GsonBuilder().setPrettyPrinting().create();
-	
+
 	public static final String DATA_PATTERN = "yyyy-MM-dd HH:mm:ss";
-	
+
 	public static Gson getGsonInstance() {
 		return new GsonBuilder().setDateFormat(DATA_PATTERN).create();
 	}
@@ -40,10 +40,6 @@ public class GsonUtils {
 		return dest;
 	}
 
-	/**
-	 * @param obj
-	 * @return
-	 */
 	public static String toJson(Object obj) {
 		if (null == obj) {
 			return null;

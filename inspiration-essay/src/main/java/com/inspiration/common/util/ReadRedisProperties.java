@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ReadProperties {
+public class ReadRedisProperties {
 	private final static Log log = LogFactory.getLog("ReadProperties.class");
 	private static Integer POOL_SIZE = null;
 
@@ -35,7 +35,7 @@ public class ReadProperties {
 			try {
 				// 以utf-8读取文件,默认为ios
 				is = new InputStreamReader(
-						ReadProperties.class.getClassLoader().getResourceAsStream("/config.properties"),
+						ReadRedisProperties.class.getClassLoader().getResourceAsStream("/config.properties"),
 						CommonConstant.encodeUTF);
 				Properties dbproperties = new Properties();
 				dbproperties.load(is);

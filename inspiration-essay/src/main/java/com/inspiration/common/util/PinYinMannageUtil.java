@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.inspiration.common.dto.PinYinDTO;
 
@@ -29,8 +31,23 @@ public class PinYinMannageUtil {
 	}
 
 	/**
+	 * 判断字符中是否包含中文
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isContainChinese(String str) {
+		Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+		Matcher m = p.matcher(str);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 字符串转拼音（多音字,简写）
-	 ***/
+	 */
 	public static List<PinYinDTO> TransWord(String tranStr) {
 		List<PinYinDTO> pinYinList = new ArrayList<PinYinDTO>();
 		HanyuPinyinOutputFormat pinYinformat = new HanyuPinyinOutputFormat();
@@ -60,7 +77,8 @@ public class PinYinMannageUtil {
 	/**
 	 * 汉字转换位汉语拼音首字母，英文字符不变，特殊字符丢失 支持多音字
 	 * 
-	 * @param chines 汉字
+	 * @param chines
+	 *            汉字
 	 * @return 拼音
 	 */
 	public static String converterToFirstSpell(String chines) {
@@ -98,7 +116,8 @@ public class PinYinMannageUtil {
 	 * 汉字转换位汉语全拼，英文字符不变，特殊字符丢失
 	 * 支持多音字，生成方式如（重当参:zhongdangcen,zhongdangcan,chongdangcen,chongdangshen,zhongdangshen,chongdangcan）
 	 * 
-	 * @param chines 汉字
+	 * @param chines
+	 *            汉字
 	 * 
 	 * @return 拼音
 	 */
@@ -106,9 +125,9 @@ public class PinYinMannageUtil {
 		StringBuffer pinyinName = new StringBuffer();
 		char[] nameChar = chines.toCharArray();
 		HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
-		//参数详解 http://blog.csdn.net/heiding215/article/details/46864035
-		defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);//输出为小写模式
-		defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);//无声调
+		// 参数详解 http://blog.csdn.net/heiding215/article/details/46864035
+		defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);// 输出为小写模式
+		defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);// 无声调
 		for (int i = 0; i < nameChar.length; i++) {
 			if (checkChinese(nameChar[i])) {
 				try {
@@ -190,7 +209,7 @@ public class PinYinMannageUtil {
 					first.clear();
 				}
 			} else {
-				//遍历
+				// 遍历
 				for (String s : list.get(i).keySet()) {
 					String str = s;
 					temp.put(str, 1);

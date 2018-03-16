@@ -6,7 +6,7 @@ public class StringUtil {
 		if ((decimal == null) || (length < 0))
 			return false;
 
-		String[] items = decimal.split(RegularExpressionUtil.dot);
+		String[] items = decimal.split(CommonConstant.dot);
 		if ((items != null) && (items.length == 2))
 			return items[1].length() <= length;
 

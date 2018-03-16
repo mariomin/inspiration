@@ -9,6 +9,13 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtil {
 
+	/**
+	 * 压缩
+	 * 
+	 * @param content
+	 * @return
+	 * @throws IOException
+	 */
 	public static final byte[] compress(String content) throws IOException {
 		if (content == null)
 			return null;
@@ -31,6 +38,13 @@ public class ZipUtil {
 		}
 	}
 
+	/**
+	 * 解压
+	 * 
+	 * @param content
+	 * @return
+	 * @throws IOException
+	 */
 	public static final String decompress(byte[] content) throws IOException {
 		if (content == null)
 			return null;

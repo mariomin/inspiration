@@ -43,7 +43,7 @@ public class SequenceUtil {
 			if (keyMap.containsKey(keyName)) {
 				keyInfo = keyMap.get(keyName);
 			} else {
-				keyInfo = new KeyInfoService(keyName, ReadProperties.getPOOL_SIZE());
+				keyInfo = new KeyInfoService(keyName, ReadRedisProperties.getPOOL_SIZE());
 				keyMap.put(keyName, keyInfo);
 			}
 			keyObject = keyInfo.getNextKey();
