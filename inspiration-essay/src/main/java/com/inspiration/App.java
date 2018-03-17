@@ -31,7 +31,7 @@ public class App {
 				break;
 			}
 			try {
-				Thread.sleep(5000L);
+				Thread.sleep(2000L);
 			} catch (InterruptedException localInterruptedException) {
 			}
 		}

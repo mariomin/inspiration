@@ -20,7 +20,7 @@ public class DataConfig {
 	}
 
 	public static void readConfig() {
-		relayDataReadCharset = Charset.forName(ServerConfig.getString("relay.data.read.charset"));
+		relayDataReadCharset = Charset.forName(ServerConfig.getString("data.read.charset"));
 		logger.info("read config file {}", ServerConfig.getConfigUrl());
 		toView();
 	}
